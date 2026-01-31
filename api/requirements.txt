@@ -6,5 +6,5 @@ numpy
 joblib
 scikit-learn
 sqlalchemy
-pymysql
+psycopg2
 python-dotenv

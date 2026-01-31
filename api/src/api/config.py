@@ -23,4 +23,4 @@ ALERT_THRESHOLD = 0.6
 VOLUME_FACTOR = 20
 
 # Database
-DATABASE_URL = os.getenv("DATABASE_URL", "mysql+pymysql://user:password@localhost/sentimental_db")
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql+psycopg2://user:password@localhost/sentimental_db")

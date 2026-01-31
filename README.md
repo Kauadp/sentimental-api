@@ -29,4 +29,4 @@ FastAPI backend for sentiment analysis of WhatsApp messages.
 
 ## Deployment
 
-Deploy to Railway with MySQL add-on. Set `DATABASE_URL` env var.
+Deploy to Vercel with Supabase (Postgres). Set `DATABASE_URL` and `GROUP_ID` env vars.
