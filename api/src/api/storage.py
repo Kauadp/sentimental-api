@@ -1,4 +1,5 @@
-import pandas as pd
+from typing import List, Dict
+from datetime import datetime
 from sqlalchemy.orm import Session
 from .database import SessionLocal, Message
 from .services.inference import infer_probability
@@ -25,8 +26,8 @@ def save_message_with_inference(message: dict):
     finally:
         db.close()
 
-def load_messages() -> pd.DataFrame:
-    """Load messages from database."""
+def load_messages() -> List[Dict]:
+    """Load messages from database as list of dictionaries."""
     db: Session = SessionLocal()
     try:
         messages = db.query(Message).all()
@@ -37,6 +38,31 @@ def load_messages() -> pd.DataFrame:
             'proba_resenha': msg.proba_resenha,
             'timestamp': msg.timestamp
         } for msg in messages]
-        return pd.DataFrame(data)
+        return data
     finally:
         db.close()
+
+def load_messages_dict() -> Dict[str, List]:
+    """Load messages from database in pandas-compatible dict format.
+    
+    Returns dict with column names as keys and lists of values.
+    Useful if you need to maintain compatibility with code expecting DataFrame structure.
+    """
+    messages = load_messages()
+    
+    if not messages:
+        return {
+            'group_id': [],
+            'sender': [],
+            'message': [],
+            'proba_resenha': [],
+            'timestamp': []
+        }
+    
+    return {
+        'group_id': [msg['group_id'] for msg in messages],
+        'sender': [msg['sender'] for msg in messages],
+        'message': [msg['message'] for msg in messages],
+        'proba_resenha': [msg['proba_resenha'] for msg in messages],
+        'timestamp': [msg['timestamp'] for msg in messages]
+    }

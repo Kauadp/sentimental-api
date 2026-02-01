@@ -16,10 +16,10 @@ def receive_message(message: MessageIn):
 
 @app.get("/alerts")
 def get_alerts():
-    df = load_messages()
-    return {"alerts": generate_alerts(df)}
+    messages = load_messages()  # Agora retorna List[Dict]
+    return {"alerts": generate_alerts(messages)}
 
 @app.get("/ranking")
 def get_ranking():
-    df = load_messages()
-    return {"ranking": generate_daily_ranking(df)}
+    messages = load_messages()  # Agora retorna List[Dict]
+    return {"ranking": generate_daily_ranking(messages)}
