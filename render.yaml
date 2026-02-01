@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: sentimental-api
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn api.src.api.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: GROUP_ID
+        sync: false
